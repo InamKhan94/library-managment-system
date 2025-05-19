@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Copy the application JAR file (replace with your actual JAR file name)
-COPY target/library-management-system-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/library-management-system-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port
 EXPOSE 8080

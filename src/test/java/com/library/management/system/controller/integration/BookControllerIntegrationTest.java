@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.management.system.dto.BookDto;
 import com.library.management.system.model.Book;
 import com.library.management.system.repository.BookRepository;
+import com.library.management.system.repository.BorrowingRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,11 +39,14 @@ class BookControllerIntegrationTest {
     private BookRepository bookRepository;
 
     @Autowired
+    private BorrowingRepository borrowingRepository;
+
+    @Autowired
     private EntityManager entityManager;
 
     @BeforeEach
     void setUp() {
-
+        borrowingRepository.deleteAll();
         bookRepository.deleteAll(); // Clean up the database before each test
         entityManager.flush();
         entityManager.clear(); // Clear the persistence context to avoid stale entities

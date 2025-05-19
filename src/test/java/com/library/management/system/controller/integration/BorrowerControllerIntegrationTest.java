@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.management.system.dto.BorrowerDto;
 import com.library.management.system.model.Borrower;
 import com.library.management.system.repository.BorrowerRepository;
+import com.library.management.system.repository.BorrowingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,14 @@ class BorrowerControllerIntegrationTest {
     private BorrowerRepository borrowerRepository;
 
     @Autowired
+    private BorrowingRepository borrowingRepository;
+
+    @Autowired
     private EntityManager entityManager;
 
     @BeforeEach
     void setUp() {
+        borrowingRepository.deleteAll();
         borrowerRepository.deleteAll(); // Clean up the database before each test
         entityManager.flush();
         entityManager.clear();

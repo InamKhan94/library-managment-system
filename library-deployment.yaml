@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-management-deployment
+  labels:
+    app: library-management-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: library-management-system
+  template:
+    metadata:
+      labels:
+        app: library-management-system
+    spec:
+      containers:
+        - name: library-management-system
+          image: inamkhan1994/library-management-system:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: library-management-config
+            - secretRef:
+                name: library-management-secrets
+          volumeMounts:
+            - name: library-data
+              mountPath: /app/data
+      volumes:
+        - name: library-data
+          persistentVolumeClaim:
+            claimName: library-pvc
